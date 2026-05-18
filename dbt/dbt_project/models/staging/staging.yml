@@ -1,0 +1,61 @@
+version: 2
+
+models:
+
+  # =========================
+  # STG CUSTOMERS
+  # =========================
+  - name: stg_customers
+    description: "Cleaned and standardized customer staging table"
+
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+      - name: email
+        tests:
+          - not_null
+
+      - name: signup_date
+
+
+  # =========================
+  # STG PRODUCTS
+  # =========================
+  - name: stg_products
+    description: "Clean product staging layer"
+
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+      - name: price
+        tests:
+          - not_null
+
+      - name: stock_quantity
+
+
+  # =========================
+  # STG ORDERS
+  # =========================
+  - name: stg_orders
+    description: "Clean order transactions"
+
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: total_amount
+        tests:
+          - not_null

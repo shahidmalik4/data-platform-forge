@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: customers
+        description: "Raw customer data from operational system"
+        config:
+          meta:
+            dagster:
+              asset_key: ["ingestion_asset"]
+
+      - name: orders
+        description: "Raw order transactions"
+        config:
+          meta:
+            dagster:
+              asset_key: ["ingestion_asset"]
+
+      - name: orders__items
+        description: "Raw order items catalog"
+        config:
+          meta:
+            dagster:
+              asset_key: ["ingestion_asset"]
+
+      - name: products
+        description: "Raw product catalog"
+        config:
+          meta:
+            dagster:
+              asset_key: ["ingestion_asset"]

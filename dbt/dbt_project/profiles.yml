@@ -1,0 +1,12 @@
+dbt_project:
+  outputs:
+    dev:
+      dbname: warehouse
+      host: localhost
+      pass: admin
+      port: 5432
+      schema: transformed
+      threads: 1
+      type: postgres
+      user: admin
+  target: dev

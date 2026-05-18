@@ -1,0 +1,41 @@
+[project]
+name = "data-platform"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dagster>=1.12.22",
+    "dagster-dbt>=0.28.22",
+    "dagster-dg-cli>=1.12.22",
+    "dagster-webserver>=1.12.22",
+    "dbt-postgres>=1.10.0",
+    "dbt-snowflake>=1.11.4",
+    "dlt[snowflake]>=1.24.0",
+    "faker>=40.13.0",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.2",
+    "sqlalchemy>=2.0.49",
+    "sqlfluff>=4.1.0",
+    "sqlfluff-templater-dbt>=4.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[build-system]
+requires = ["hatchling>=1.19.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/data_platform"]
+
+[tool.dagster]
+module_name = "data_platform.orchestrator.definitions"
+code_location_name = "data_platform"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

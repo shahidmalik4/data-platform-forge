@@ -3,9 +3,14 @@ version: 2
 sources:
   - name: raw
     schema: raw
+
     tables:
       - name: customers
         description: "Raw customer data from operational system"
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: {count: 30, period: minute}
+          error_after: {count: 2, period: hour}
         config:
           meta:
             dagster:
@@ -13,6 +18,10 @@ sources:
 
       - name: orders
         description: "Raw order transactions"
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: {count: 30, period: minute}
+          error_after: {count: 2, period: hour}
         config:
           meta:
             dagster:
@@ -20,6 +29,10 @@ sources:
 
       - name: orders__items
         description: "Raw order items catalog"
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: {count: 30, period: minute}
+          error_after: {count: 2, period: hour}
         config:
           meta:
             dagster:
@@ -27,6 +40,10 @@ sources:
 
       - name: products
         description: "Raw product catalog"
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: {count: 30, period: minute}
+          error_after: {count: 2, period: hour}
         config:
           meta:
             dagster:

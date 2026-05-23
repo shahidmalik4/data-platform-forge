@@ -8,9 +8,8 @@ from data_platform.ingestion.utils.order_item_buckets import realistic_num_items
 
 fake = Faker()
 
-# -------------------------------
+
 # CONFIG
-# -------------------------------
 NO_OF_ORDERS_FIRST_RUN = 2000
 NO_NEW_ORDERS = 35
 
@@ -23,9 +22,8 @@ PAYMENT_METHODS = {
     "UAE": ["credit_card", "cash_on_delivery"]
 }
 
-# -------------------------------
+
 # HELPERS
-# -------------------------------
 def pick_customer(customers):
     weights = [
         max(1, c.get("engagement_score", 50))
@@ -89,9 +87,7 @@ def get_order_status(order_timestamp):
     return "delivered"
 
 
-# -------------------------------
 # ORDER CREATION
-# -------------------------------
 def create_order(customers, products):
     customer = pick_customer(customers)
     order_id = str(uuid.uuid4())
@@ -173,7 +169,6 @@ def create_order(customers, products):
 
         "total_items": num_items,
 
-        # GROSS + DISCOUNT ONLY (dbt derives net_revenue)
         "total_amount": round(total_gross, 2),
         "total_discount": round(total_discount, 2),
         "shipping_cost": shipping_cost,
@@ -183,9 +178,7 @@ def create_order(customers, products):
     }
 
 
-# -------------------------------
-# MAIN RUN
-# -------------------------------
+
 def run_order_generation():
     raw_customers = fetch_table("customers")
     raw_products = fetch_table("products")

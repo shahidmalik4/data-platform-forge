@@ -22,7 +22,6 @@ def fetch_table(table_name, schema="raw"):
     try:
         cur.execute(f'SELECT * FROM "{schema}"."{table_name}"')
 
-        # FIX: normalize column names
         columns = [desc[0].lower() for desc in cur.description]
 
         rows = cur.fetchall()
@@ -50,7 +49,6 @@ def is_first_run(table_name, schema="raw"):
         return count == 0
 
     except Exception:
-        # FIX: table doesn't exist → first run
         print(f"[WARN] Table {schema}.{table_name} not found → treating as first run")
         return True
 

@@ -47,9 +47,7 @@ PRICE_RANGES = {
 }
 
 
-# -------------------------------
-# Safe price generation
-# -------------------------------
+
 def generate_price_and_cost(category):
     min_price, max_price = PRICE_RANGES[category]
 
@@ -61,9 +59,7 @@ def generate_price_and_cost(category):
     return price, cost
 
 
-# -------------------------------
-# Create product (SAFE)
-# -------------------------------
+# Create product
 def create_product():
     category = random.choice(list(CATALOG.keys()))
     subcategory = random.choice(list(CATALOG[category].keys()))
@@ -90,9 +86,6 @@ def create_product():
     }
 
 
-# -------------------------------
-# Run generation
-# -------------------------------
 def run_product_generation():
     first_run = is_first_run("products")
     n = NO_OF_PRODUCTS if first_run else NO_NEW_PRODUCTS

@@ -74,9 +74,7 @@ def create_customer():
     }
 
 
-# -------------------------------
-# MAIN LOGIC FIX
-# -------------------------------
+
 # def run_customer_generation():
 #     existing = fetch_table("customers")
 #     first_run = is_first_run("customers")

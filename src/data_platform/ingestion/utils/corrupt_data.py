@@ -1,9 +1,8 @@
 import random
 import uuid
 
-# -------------------------------
+
 # Helper functions
-# -------------------------------
 def maybe_null(record, field, prob=0.1):
     if field in record and random.random() < prob:
         record[field] = None
@@ -35,9 +34,8 @@ def maybe_flip_relationship(record, field, prob=0.05, allow_fk_corruption=False)
 
     return record
 
-# -------------------------------
+
 # Corrupt Customers
-# -------------------------------
 def corrupt_customer(customer):
     customer = maybe_null(customer, "email", 0.2)
     customer = maybe_null(customer, "phone", 0.15)
@@ -54,9 +52,8 @@ def corrupt_customer(customer):
 
     return customer
 
-# -------------------------------
+
 # Corrupt Products
-# -------------------------------
 def corrupt_product(product):
     product = maybe_null(product, "brand", 0.1)
     product = maybe_null(product, "category", 0.15)
@@ -70,9 +67,8 @@ def corrupt_product(product):
 
     return product
 
-# -------------------------------
+
 # Corrupt Order Items
-# -------------------------------
 def corrupt_order_item(item):
     item = maybe_null(item, "product_name", 0.1)
     item = maybe_null(item, "category", 0.1)
@@ -94,9 +90,8 @@ def corrupt_order_item(item):
 
     return item
 
-# -------------------------------
+
 # Corrupt Orders
-# -------------------------------
 def corrupt_order(order):
     order = maybe_null(order, "payment_method", 0.1)
     order = maybe_null(order, "shipping_timestamp", 0.15)
@@ -115,9 +110,8 @@ def corrupt_order(order):
 
     return order
 
-# -------------------------------
+
 # Corrupt list of records
-# -------------------------------
 def corrupt_list(records, record_type="customer"):
     corrupted = []
     for r in records:

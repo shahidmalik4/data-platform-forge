@@ -49,7 +49,7 @@ def print_load_info(load_info):
             cur.execute(f'SELECT COUNT(*) FROM "{SCHEMA}"."{table}"')
             count = cur.fetchone()[0]
 
-            print(f"✔ {SCHEMA}.{table}: {count} rows")
+            print(f"{SCHEMA}.{table}: {count} rows")
 
     cur.close()
     conn.close()

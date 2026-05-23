@@ -6,7 +6,8 @@
 # Paths
 # ------------------------------------------------------------
 
-DBT_DIR         = dbt/dbt_project
+DBT_DIR = dbt/dbt_project
+DBT = uv run dbt --project-dir $(DBT_DIR)
 SRC_DIR         = src
 TESTS_DIR       = tests
 SCRIPTS_DIR     = scripts
@@ -110,7 +111,7 @@ dagster:
 
 .PHONY: ingest
 ingest:
-	$(PYTHON) -m data_platform.ingestion.pipeline
+	$(PYTHON) -m src.data_platform.ingestion.pipeline.run_dlt_pipeline
 
 # ============================================================
 # Transformation
@@ -166,6 +167,14 @@ sql-lint:
 .PHONY: sql-fix
 sql-fix:
 	$(UV) sqlfluff fix $(DBT_DIR)
+
+.PHONY: all
+all:
+	make ingest
+	make dbt-run
+	make dbt-test
+	make sql-lint
+	make lint
 
 # ============================================================
 # Housekeeping

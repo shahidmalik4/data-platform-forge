@@ -23,9 +23,8 @@ PAYMENT_METHODS = {
     "UAE": ["credit_card", "cash_on_delivery"]
 }
 
-
 # -------------------------------
-# SAFE PICK HELPERS (IMPORTANT FIX)
+# HELPERS
 # -------------------------------
 def pick_customer(customers):
     weights = [
@@ -37,7 +36,7 @@ def pick_customer(customers):
 
 def pick_product(products):
     weights = [
-        1 / (max(p.get("price", 1), 1))
+        1 / max(p.get("price", 1), 1)
         for p in products
     ]
     return random.choices(products, weights=weights, k=1)[0]
@@ -95,8 +94,6 @@ def get_order_status(order_timestamp):
 # -------------------------------
 def create_order(customers, products):
     customer = pick_customer(customers)
-    product = pick_product(products)
-
     order_id = str(uuid.uuid4())
 
     order_timestamp = fake.date_time_between(start_date="-1y", end_date="now")
@@ -110,7 +107,8 @@ def create_order(customers, products):
     num_items = realistic_num_items()
 
     order_items = []
-    total_amount = 0
+
+    total_gross = 0
     total_discount = 0
 
     for _ in range(num_items):
@@ -119,27 +117,32 @@ def create_order(customers, products):
         quantity = get_quantity(product.get("category", "Other"))
         unit_price = float(product.get("price") or 0)
 
-        discount_pct = random.choice([0, 5, 10, 15])
-        discount_amount = round(unit_price * quantity * discount_pct / 100, 2)
-        item_total = unit_price * quantity * (1 - discount_pct/100)
+        gross_item_total = round(unit_price * quantity, 2)
 
-        total_amount += item_total
+        discount_pct = random.choice([0, 5, 10, 15])
+        discount_amount = round(gross_item_total * discount_pct / 100, 2)
+
+        net_item_total = round(gross_item_total - discount_amount, 2)
+
+        total_gross += gross_item_total
         total_discount += discount_amount
 
         order_items.append({
             "order_item_id": str(uuid.uuid4()),
             "order_id": order_id,
 
-            # STRICT FK (NO FALLBACK EVER)
             "product_id": product["product_id"],
-
             "product_name": product["product_name"],
             "category": product["category"],
+
             "quantity": quantity,
             "unit_price": unit_price,
+
+            # CLEAN ACCOUNTING MODEL
+            "gross_item_total": gross_item_total,
             "discount_pct": discount_pct,
             "discount_amount": discount_amount,
-            "item_total": item_total
+            "net_item_total": net_item_total
         })
 
     shipping_cost = round(random.uniform(0, 20), 2)
@@ -156,8 +159,6 @@ def create_order(customers, products):
 
     return {
         "order_id": order_id,
-
-        # STRICT FK
         "customer_id": customer["customer_id"],
 
         "customer_country": customer["country"],
@@ -171,9 +172,11 @@ def create_order(customers, products):
         "items": order_items,
 
         "total_items": num_items,
+
+        # GROSS + DISCOUNT ONLY (dbt derives net_revenue)
+        "total_amount": round(total_gross, 2),
         "total_discount": round(total_discount, 2),
         "shipping_cost": shipping_cost,
-        "total_amount": round(total_amount, 2),
 
         "created_at": datetime.utcnow().isoformat(),
         "updated_at": datetime.utcnow().isoformat()
@@ -187,7 +190,6 @@ def run_order_generation():
     raw_customers = fetch_table("customers")
     raw_products = fetch_table("products")
 
-    # HARD GUARD
     if not raw_customers or not raw_products:
         raise ValueError("Missing customers/products data in RAW layer")
 

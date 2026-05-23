@@ -27,14 +27,14 @@ final as (
         unit_price,
         discount_pct,
         discount_amount,
-        -- item_total,
-        round(quantity * unit_price - discount_amount, 2) as item_total,
 
-        -- DERIVED METRICS
+        -- GROSS (must be repeated, no alias reuse)
         quantity * unit_price as gross_item_total,
 
-        round(item_total, 2) as net_item_total,
+        -- NET (computed directly from expression)
+        round(quantity * unit_price - discount_amount, 2) as net_item_total,
 
+        -- VALIDATION FLAG
         case
             when quantity > 0
              and unit_price > 0

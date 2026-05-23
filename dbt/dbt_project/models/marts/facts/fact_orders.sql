@@ -28,12 +28,14 @@ select
     total_amount,
     total_discount,
     shipping_cost,
+    (total_amount - total_discount) as net_revenue,
 
     order_timestamp,
     shipping_timestamp,
     created_at,
     updated_at,
     delivery_days,
+    order_status,
 
     case when order_status = 'completed' then 1 else 0 end as is_completed,
     case when order_status = 'pending' then 1 else 0 end as is_pending,

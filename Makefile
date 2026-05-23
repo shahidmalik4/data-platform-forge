@@ -1,84 +1,183 @@
-# ========================================
+# ============================================================
 # Data Platform Makefile
-# ========================================
+# ============================================================
 
-# Directories
-TRANSFORMATIONS_DIR = data-platform/transformations/dbt_project
-ORCHESTRATOR_DIR   = data-platform/orchestrator
-DLT_PIPELINE_DIR   = data-platform/ingestion/pipeline
+# ------------------------------------------------------------
+# Paths
+# ------------------------------------------------------------
 
+DBT_DIR         = dbt/dbt_project
+SRC_DIR         = src
+TESTS_DIR       = tests
+SCRIPTS_DIR     = scripts
+DAGSTER_HOME   ?= $(CURDIR)/.dagster_home
+
+# ------------------------------------------------------------
 # Commands
-UV = uv run
-DBT = $(UV) dbt --project-dir $(TRANSFORMATIONS_DIR)
-DAGSTER = $(UV) dagster
-PYTHON = $(UV) python
+# ------------------------------------------------------------
 
-# ========================================
-# Default
-# ========================================
+UV      = uv run
+DBT     = $(UV) dbt --project-dir $(DBT_DIR)
+DAGSTER = DAGSTER_HOME=$(DAGSTER_HOME) $(UV) dagster
+PYTHON  = $(UV) python
+RUFF    = $(UV) ruff
+BLACK   = $(UV) black
+
+# ============================================================
+# Help  (default target)
+# ============================================================
+
 .PHONY: help
 help:
-	@echo "Available commands:"
-	@echo "  make dagster      - Run Dagster dev server"
-	@echo "  make run-dlt      - Run DLT pipelines"
-	@echo "  make dbt-run      - Run dbt models"
-	@echo "  make dbt-test     - Run dbt tests"
-	@echo "  make clean        - Clean temp files and artifacts"
-	@echo "  make lint         - Run Python linters (ruff/black)"
-	@echo "  make init         - Install dependencies and sync uv"
+	@echo ""
+	@echo "  Data Platform — available commands"
+	@echo ""
+	@echo "  Setup"
+	@echo "    make init            Install dependencies and create runtime dirs"
+	@echo ""
+	@echo "  Infrastructure"
+	@echo "    make docker-up       Start Postgres container"
+	@echo "    make docker-down     Stop and remove containers"
+	@echo "    make docker-reset    Destroy volumes and restart fresh"
+	@echo ""
+	@echo "  Orchestration"
+	@echo "    make dagster         Launch Dagster dev UI"
+	@echo ""
+	@echo "  Ingestion"
+	@echo "    make ingest          Run dlt ingestion pipeline"
+	@echo ""
+	@echo "  Transformation"
+	@echo "    make dbt-run         Run all dbt models"
+	@echo "    make dbt-run-full    Run all dbt models (--full-refresh)"
+	@echo "    make dbt-test        Run dbt tests"
+	@echo "    make dbt-compile     Compile dbt project (validate SQL)"
+	@echo "    make dbt-docs        Generate and serve dbt docs"
+	@echo ""
+	@echo "  Testing"
+	@echo "    make test            Run pytest suite"
+	@echo ""
+	@echo "  Code quality"
+	@echo "    make lint            Check code style (ruff + black)"
+	@echo "    make format          Auto-format code (ruff + black)"
+	@echo "    make sql-lint        Lint SQL with sqlfluff"
+	@echo "    make sql-fix         Auto-fix SQL with sqlfluff"
+	@echo ""
+	@echo "  Housekeeping"
+	@echo "    make clean           Remove build artifacts and caches"
+	@echo ""
 
-# ========================================
-# Project setup
-# ========================================
+# ============================================================
+# Setup
+# ============================================================
+
 .PHONY: init
 init:
-	$(UV) sync
-	@echo "Dependencies installed and environment synced!"
+	uv sync
+	mkdir -p $(DAGSTER_HOME)
+	@echo "✓ Dependencies installed"
+	@echo "✓ DAGSTER_HOME created at $(DAGSTER_HOME)"
 
-# ========================================
-# Dagster
-# ========================================
+# ============================================================
+# Infrastructure
+# ============================================================
+
+.PHONY: docker-up
+docker-up:
+	docker compose up -d
+	@echo "✓ Postgres running"
+
+.PHONY: docker-down
+docker-down:
+	docker compose down
+
+.PHONY: docker-reset
+docker-reset:
+	docker compose down -v
+	docker compose up -d
+	@echo "✓ Warehouse reset — volumes wiped and recreated"
+
+# ============================================================
+# Orchestration
+# ============================================================
+
 .PHONY: dagster
 dagster:
-	cd $(ORCHESTRATOR_DIR) && $(DAGSTER) dev
+	$(DAGSTER) dev
 
-# ========================================
-# DLT pipelines
-# ========================================
-.PHONY: run-dlt
-run-dlt:
-	$(PYTHON) $(DLT_PIPELINE_DIR)/run_dlt_pipeline.py
+# ============================================================
+# Ingestion
+# ============================================================
 
-# ========================================
-# dbt
-# ========================================
+.PHONY: ingest
+ingest:
+	$(PYTHON) -m data_platform.ingestion.pipeline
+
+# ============================================================
+# Transformation
+# ============================================================
+
 .PHONY: dbt-run
 dbt-run:
 	$(DBT) run
+
+.PHONY: dbt-run-full
+dbt-run-full:
+	$(DBT) run --full-refresh
 
 .PHONY: dbt-test
 dbt-test:
 	$(DBT) test
 
-# ========================================
-# Lint & format
-# ========================================
+.PHONY: dbt-compile
+dbt-compile:
+	$(DBT) compile
+
+.PHONY: dbt-docs
+dbt-docs:
+	$(DBT) docs generate
+	$(DBT) docs serve
+
+# ============================================================
+# Testing
+# ============================================================
+
+.PHONY: test
+test:
+	$(UV) pytest $(TESTS_DIR) -v
+
+# ============================================================
+# Code quality
+# ============================================================
+
 .PHONY: lint
 lint:
-	$(UV) ruff check data-platform
-	$(UV) black --check data-platform
+	$(RUFF) check $(SRC_DIR)
+	$(BLACK) --check $(SRC_DIR)
 
 .PHONY: format
 format:
-	$(UV) black data-platform
+	$(RUFF) check --fix $(SRC_DIR)
+	$(BLACK) $(SRC_DIR)
 
-# ========================================
-# Clean
-# ========================================
+.PHONY: sql-lint
+sql-lint:
+	$(UV) sqlfluff lint $(DBT_DIR)
+
+.PHONY: sql-fix
+sql-fix:
+	$(UV) sqlfluff fix $(DBT_DIR)
+
+# ============================================================
+# Housekeeping
+# ============================================================
+
 .PHONY: clean
 clean:
-	rm -rf data-platform/__pycache__
-	rm -rf data-platform/orchestrator/__pycache__
-	rm -rf data-platform/ingestion/__pycache__
-	rm -rf data-platform/transformations/dbt_project/target
-	@echo "Cleaned temporary files and artifacts."
+	find $(SRC_DIR) -type d -name "__pycache__" -exec rm -rf {} +
+	find $(TESTS_DIR) -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf $(DBT_DIR)/target
+	rm -rf $(DBT_DIR)/logs
+	rm -rf $(DBT_DIR)/dbt_packages
+	rm -rf .pytest_cache
+	rm -rf .ruff_cache
+	@echo "✓ Cleaned build artifacts and caches"

@@ -2,6 +2,7 @@ import uuid
 import random
 from datetime import datetime
 from faker import Faker
+import os
 
 from data_platform.ingestion.utils.db_utils import fetch_table, is_first_run
 from data_platform.ingestion.utils.corrupt_data import corrupt_list

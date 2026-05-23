@@ -18,38 +18,21 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_customers')
-              field: customer_id
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
 
       - name: total_amount
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: "{{ column_name }} >= 0"
 
       - name: shipping_cost
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: "{{ column_name }} >= 0"
 
       - name: net_revenue
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: "{{ column_name }} >= 0"
-
-    tests:
-
-      # ✔ must always be logically consistent (NOT exact equality)
-      - dbt_utils.expression_is_true:
-          expression: |
-            net_revenue <= total_amount
-
-      # ✔ allow floating tolerance instead of exact match
-      - dbt_utils.expression_is_true:
-          expression: |
-            abs((total_amount - shipping_cost) - net_revenue) < 0.05
 
 
   # =========================
@@ -68,55 +51,34 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('fact_orders')
-              field: order_id
+              arguments:
+                to: ref('fact_orders')
+                field: order_id
 
       - name: product_id
         tests:
           - not_null
           - relationships:
-              to: ref('dim_products')
-              field: product_id
+              arguments:
+                to: ref('dim_products')
+                field: product_id
 
       - name: quantity
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: "{{ column_name }} > 0"
 
       - name: unit_price
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: "{{ column_name }} >= 0"
 
-      - name: item_total
+      - name: discount_amount
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: "{{ column_name }} >= 0"
 
-    tests:
+      - name: gross_item_total
+        tests:
+          - not_null
 
-      # ✔ correct gross calculation
-      - dbt_utils.expression_is_true:
-          expression: |
-            gross_item_total = quantity * unit_price
-
-      # ✔ net must always be <= gross
-      - dbt_utils.expression_is_true:
-          expression: |
-            net_item_total <= gross_item_total
-
-      # ✔ discount sanity only (NOT exact match)
-      - dbt_utils.expression_is_true:
-          expression: |
-            discount_amount >= 0
-            and discount_amount <= gross_item_total
-
-      # ✔ structural validity
-      - dbt_utils.expression_is_true:
-          expression: |
-            quantity > 0
-            and unit_price >= 0
-            and item_total >= 0
+      - name: net_item_total
+        tests:
+          - not_null

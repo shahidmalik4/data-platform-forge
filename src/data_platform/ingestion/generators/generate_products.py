@@ -6,6 +6,8 @@ import os
 
 from data_platform.ingestion.utils.db_utils import fetch_table, is_first_run
 from data_platform.ingestion.utils.corrupt_data import corrupt_list
+from data_platform.ingestion.utils.timestamps import batch_time
+
 
 fake = Faker()
 
@@ -92,11 +94,18 @@ def run_product_generation():
 
     products = [create_product() for _ in range(n)]
 
-    # ONLY apply corruption if enabled
+    # batch timestamp (ONE per run)
+    batch_timestamp = batch_time()
+
+    # attach to all rows
+    for p in products:
+        p["_ingested_at"] = batch_timestamp
+
+    # chaos mode corruption
     if os.getenv("DATA_MODE") == "chaos":
         products = corrupt_list(products, record_type="product")
 
-    # ALWAYS enforce final safety ONLY in chaos mode
+    # safety cleanup in chaos mode
     if os.getenv("DATA_MODE") == "chaos":
         for p in products:
             p["price"] = max(0.01, abs(p.get("price", 0) or 0))

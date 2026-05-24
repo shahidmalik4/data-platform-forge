@@ -5,6 +5,8 @@ from faker import Faker
 
 from data_platform.ingestion.utils.db_utils import fetch_table, is_first_run
 from data_platform.ingestion.utils.order_item_buckets import realistic_num_items
+from data_platform.ingestion.utils.timestamps import batch_time
+
 
 fake = Faker()
 
@@ -47,7 +49,7 @@ def validate_customers(customers):
         and isinstance(c.get("engagement_score"), (int, float))
     ]
 
-    print(f"[INFO] Customers fetched: {len(customers)} | Valid: {len(valid)}")
+    #print(f"[INFO] Customers fetched: {len(customers)} | Valid: {len(valid)}")
 
     if not valid:
         raise ValueError("Customer data contract violated")
@@ -62,7 +64,7 @@ def validate_products(products):
         and isinstance(p.get("price"), (int, float))
     ]
 
-    print(f"[INFO] Products fetched: {len(products)} | Valid: {len(valid)}")
+    #print(f"[INFO] Products fetched: {len(products)} | Valid: {len(valid)}")
 
     if not valid:
         raise ValueError("Product data contract violated")
@@ -134,7 +136,6 @@ def create_order(customers, products):
             "quantity": quantity,
             "unit_price": unit_price,
 
-            # CLEAN ACCOUNTING MODEL
             "gross_item_total": gross_item_total,
             "discount_pct": discount_pct,
             "discount_amount": discount_amount,
@@ -183,16 +184,34 @@ def run_order_generation():
     raw_customers = fetch_table("customers")
     raw_products = fetch_table("products")
 
-    if not raw_customers or not raw_products:
-        raise ValueError("Missing customers/products data in RAW layer")
+    #print(f"[DEBUG] Customers rows: {len(raw_customers)}")
+    #print(f"[DEBUG] Products rows: {len(raw_products)}")
+
+    if len(raw_customers) == 0:
+        raise ValueError("RAW.customers is empty")
+
+    if len(raw_products) == 0:
+        raise ValueError("RAW.products is empty")
 
     customers = validate_customers(raw_customers)
     products = validate_products(raw_products)
 
     first_run = is_first_run("orders")
-    n_orders = NO_OF_ORDERS_FIRST_RUN if first_run else NO_NEW_ORDERS
 
-    return [
+    n_orders = (
+        NO_OF_ORDERS_FIRST_RUN if first_run else NO_NEW_ORDERS
+    )
+
+    orders = [
         create_order(customers, products)
         for _ in range(n_orders)
     ]
+
+    batch_timestamp = batch_time()
+
+    for order in orders:
+        order["_ingested_at"] = batch_timestamp
+        for item in order["items"]:
+            item["_ingested_at"] = batch_timestamp
+
+    return orders

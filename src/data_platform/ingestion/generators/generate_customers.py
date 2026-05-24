@@ -6,6 +6,8 @@ import os
 
 from data_platform.ingestion.utils.db_utils import fetch_table, is_first_run
 from data_platform.ingestion.utils.corrupt_data import corrupt_list
+from data_platform.ingestion.utils.timestamps import batch_time
+
 
 fake = Faker()
 
@@ -87,6 +89,22 @@ def create_customer():
 
 def run_customer_generation():
     customers = [create_customer() for _ in range(NO_OF_CUSTOMERS)]
+
+    # Add corruption
+    if os.getenv("DATA_MODE") == "chaos":
+        customers = corrupt_list(customers, record_type="customer")
+
+    return customers
+
+
+def run_customer_generation():
+    customers = [create_customer() for _ in range(NO_OF_CUSTOMERS)]
+
+    batch_timestamp = batch_time()
+
+    # attach to every row
+    for customer in customers:
+        customer["_ingested_at"] = batch_timestamp
 
     # Add corruption
     if os.getenv("DATA_MODE") == "chaos":

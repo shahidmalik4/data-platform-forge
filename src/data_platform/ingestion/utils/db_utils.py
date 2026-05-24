@@ -27,7 +27,7 @@ def fetch_table(table_name, schema="raw"):
         rows = cur.fetchall()
         data = [dict(zip(columns, row)) for row in rows]
 
-        print(f"[INFO] Fetched {len(data)} rows from {schema}.{table_name}")
+        #print(f"[INFO] Fetched {len(data)} rows from {schema}.{table_name}")
 
     except Exception as e:
         print(f"[ERROR] fetching {schema}.{table_name}: {e}")

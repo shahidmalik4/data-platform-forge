@@ -9,42 +9,42 @@ sources:
         description: "Raw customer data from operational system"
         loaded_at_field: _ingested_at
         freshness:
-          warn_after: {count: 30, period: minute}
-          error_after: {count: 2, period: hour}
+          warn_after: { count: 30, period: minute }
+          error_after: { count: 2, period: hour }
         config:
           meta:
             dagster:
-              asset_key: ["ingestion_asset"]
-
-      - name: orders
-        description: "Raw order transactions"
-        loaded_at_field: _ingested_at
-        freshness:
-          warn_after: {count: 30, period: minute}
-          error_after: {count: 2, period: hour}
-        config:
-          meta:
-            dagster:
-              asset_key: ["ingestion_asset"]
-
-      - name: orders__items
-        description: "Raw order items catalog"
-        loaded_at_field: _ingested_at
-        freshness:
-          warn_after: {count: 30, period: minute}
-          error_after: {count: 2, period: hour}
-        config:
-          meta:
-            dagster:
-              asset_key: ["ingestion_asset"]
+              asset_key: ["ingestion_customers"]
 
       - name: products
         description: "Raw product catalog"
         loaded_at_field: _ingested_at
         freshness:
-          warn_after: {count: 30, period: minute}
-          error_after: {count: 2, period: hour}
+          warn_after: { count: 30, period: minute }
+          error_after: { count: 2, period: hour }
         config:
           meta:
             dagster:
-              asset_key: ["ingestion_asset"]
+              asset_key: ["ingestion_products"]
+
+      - name: orders
+        description: "Raw order transactions"
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: { count: 30, period: minute }
+          error_after: { count: 2, period: hour }
+        config:
+          meta:
+            dagster:
+              asset_key: ["ingestion_orders"]
+
+      - name: orders__items
+        description: "Raw order line items (generated with orders)"
+        loaded_at_field: _ingested_at
+        freshness:
+          warn_after: { count: 30, period: minute }
+          error_after: { count: 2, period: hour }
+        config:
+          meta:
+            dagster:
+              asset_key: ["ingestion_orders"]

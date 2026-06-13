@@ -1,6 +1,6 @@
 # Data Platform Forge
 
-A production-style local data platform built with modern data engineering tools. This project simulates a real-world ELT pipeline — from raw data ingestion through transformation and orchestration — using the same stack used in professional data engineering teams.
+A production-style local data platform built with modern data engineering tools. This project simulates a real-world ELT pipeline, from raw data ingestion through transformation and orchestration, using the same stack used in professional data engineering teams.
 
 ---
 

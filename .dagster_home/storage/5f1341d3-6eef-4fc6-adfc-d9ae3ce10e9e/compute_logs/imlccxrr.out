@@ -1,0 +1,6 @@
+[INFO] Connected to DB -> localhost:5432/warehouse
+[INFO] raw.products row count = 450
+
+Load Summary:
+
+raw.products: 459 rows

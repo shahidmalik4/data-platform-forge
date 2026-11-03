@@ -1,0 +1,5 @@
+[INFO] Fetched 1000 rows from raw.customers
+[ERROR] fetching raw.products: relation "raw.products" does not exist
+LINE 1: SELECT * FROM "raw"."products"
+                      ^
+

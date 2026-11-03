@@ -1,0 +1,63 @@
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21106 - LOGS_CAPTURED - Started capturing logs in process (pid: 21106).
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21106 - raw_products - STEP_START - Started execution of step "raw_products".
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - raw_products - Starting products ingestion...
+[32m2026-04-11 17:18:29 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21106 - raw_products - STEP_FAILURE - Execution of step "raw_products" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "raw_products"::
+
+dlt.pipeline.exceptions.PipelineStepFailed: Pipeline execution failed at `step=load` when processing package with `load_id=1775909885.2764595` with exception:
+
+<class 'FileNotFoundError'>
+/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2764595/schema_updates.json
+
+Pending packages are left in the pipeline and will be re-tried on the next pipeline run. If you pass new data to extract to next run, it will be ignored. Run `dlt pipeline etl_forge_pipeline info` for more information or `dlt pipeline etl_forge_pipeline drop-pending-packages` to drop pending packages.
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 29, in raw_products
+    result = run_single_resource(products_resource)
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 59, in run_single_resource
+    load_info = pipeline.run(resource_func())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 770, in run
+    return self.load(destination, dataset_name, credentials=credentials)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 164, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 635, in load
+    raise PipelineStepFailed(self, "load", err_load_id, l_ex, step_info) from l_ex
+
+The above exception was caused by the following exception:
+FileNotFoundError: /home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2764595/schema_updates.json
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 625, in load
+    runner.run_pool(load_step.config, load_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 206, in run_pool
+    while _run_func():
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 199, in _run_func
+    run_metrics = run_f.run(cast(TExecutor, pool))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 696, in run
+    self.load_single_package(load_id, schema)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 598, in load_single_package
+    running_jobs = self.initialize_package(load_id, schema, new_jobs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 578, in initialize_package
+    self.load_storage.commit_schema_update(load_id, applied_update)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_storage.py", line 155, in commit_schema_update
+    self.storage.delete(schema_update_file)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/file_storage.py", line 91, in delete
+    raise FileNotFoundError(file_path)
+[0m

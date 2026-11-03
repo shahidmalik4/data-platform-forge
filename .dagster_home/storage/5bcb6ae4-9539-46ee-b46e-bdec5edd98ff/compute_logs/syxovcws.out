@@ -1,0 +1,4 @@
+[INFO] Fetched 500 rows from raw.customers
+[INFO] Fetched 459 rows from raw.products
+[INFO] Customers fetched: 500 | Valid: 500
+[INFO] Products fetched: 459 | Valid: 459

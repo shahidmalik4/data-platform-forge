@@ -1,0 +1,12 @@
+[INFO] Connected to DB -> localhost:5432/warehouse
+[INFO] Running query: SELECT * FROM "raw"."customers"
+[INFO] Fetched 2000 rows from raw.customers
+[INFO] Connected to DB -> localhost:5432/warehouse
+[INFO] Running query: SELECT * FROM "raw"."products"
+[INFO] Fetched 468 rows from raw.products
+[DEBUG] Customers rows: 2000
+[DEBUG] Products rows: 468
+[INFO] Customers fetched: 2000 | Valid: 2000
+[INFO] Products fetched: 468 | Valid: 468
+[INFO] Connected to DB -> localhost:5432/warehouse
+[INFO] raw.orders row count = 2000

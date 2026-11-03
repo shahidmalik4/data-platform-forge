@@ -1,0 +1,18 @@
+
+Load Summary:
+
+✔ raw.customers: 500 rows
+[WARN] Table raw.products not found → treating as first run
+
+Load Summary:
+
+✔ raw.products: 450 rows
+[INFO] Waiting for data availability...
+[ERROR] fetching raw.customers: relation "RAW.CUSTOMERS" does not exist
+LINE 1: SELECT * FROM "RAW"."CUSTOMERS"
+                      ^
+
+[ERROR] fetching raw.products: relation "RAW.PRODUCTS" does not exist
+LINE 1: SELECT * FROM "RAW"."PRODUCTS"
+                      ^
+

@@ -1,11 +1,11 @@
-.dagster_home/
+#.dagster_home/
 .pytest_cache/
 .venv/
 
 
 #.env
 .env.*
-.dlt/secrets.toml
+#.dlt/secrets.toml
 *.key
 *.pem
 
@@ -62,4 +62,4 @@ htmlcov/
 
 *.bak
 *.tmp
-.env
+

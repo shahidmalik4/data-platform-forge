@@ -1,0 +1,8 @@
+[32m2026-05-24 17:24:19 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - 323814 - LOGS_CAPTURED - Started capturing logs in process (pid: 323814).
+[32m2026-05-24 17:24:19 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - 323814 - ingestion_orders - STEP_START - Started execution of step "ingestion_orders".
+[32m2026-05-24 17:24:19 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - ingestion_orders - Starting orders pipeline...
+[32m2026-05-24 17:24:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - 323814 - ingestion_orders - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2026-05-24 17:24:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - ingestion_orders - Writing file at: /home/cipher/projects/data-platform/.dagster_home/storage/ingestion_orders using PickledObjectFilesystemIOManager...
+[32m2026-05-24 17:24:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - 323814 - ingestion_orders - ASSET_MATERIALIZATION - Materialized value ingestion_orders.
+[32m2026-05-24 17:24:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - 323814 - ingestion_orders - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2026-05-24 17:24:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 9180a193-ee94-4fba-b2e9-3f0cee88382e - 323814 - ingestion_orders - STEP_SUCCESS - Finished execution of step "ingestion_orders" in 1.21s.

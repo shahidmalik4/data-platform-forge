@@ -1,0 +1,41 @@
+Running with dbt=1.11.8
+Registered adapter: snowflake=1.11.4
+[[33mWARNING[0m][PropertyMovedToConfigDeprecation]: Deprecated functionality
+Found `meta` as a top-level property of `sources[0].tables[0]` in file
+`models/staging/sources.yml`. The `meta` top-level property should be moved into
+the `config` of `sources[0].tables[0]`.
+Found 8 models, 1 snapshot, 4 sources, 524 macros
+
+Concurrency: 1 threads (target='dev')
+
+1 of 9 START sql view model staging.stg_customers .............................. [RUN]
+1 of 9 OK created sql view model staging.stg_customers ......................... [[32mSUCCESS 1[0m in 0.41s]
+2 of 9 START sql view model staging.stg_lineitems .............................. [RUN]
+2 of 9 OK created sql view model staging.stg_lineitems ......................... [[32mSUCCESS 1[0m in 0.29s]
+3 of 9 START sql view model staging.stg_orders ................................. [RUN]
+3 of 9 OK created sql view model staging.stg_orders ............................ [[32mSUCCESS 1[0m in 0.30s]
+4 of 9 START sql view model staging.stg_products ............................... [RUN]
+4 of 9 OK created sql view model staging.stg_products .......................... [[32mSUCCESS 1[0m in 0.45s]
+5 of 9 START snapshot snapshots.snap_dim_customers ............................. [RUN]
+5 of 9 OK snapshotted snapshots.snap_dim_customers ............................. [[32mSUCCESS 0[0m in 4.58s]
+6 of 9 START sql table model marts.fact_lineitems .............................. [RUN]
+6 of 9 OK created sql table model marts.fact_lineitems ......................... [[32mSUCCESS 67086[0m in 1.47s]
+7 of 9 START sql incremental model marts.fact_orders ........................... [RUN]
+7 of 9 OK created sql incremental model marts.fact_orders ...................... [[32mSUCCESS 0[0m in 2.83s]
+8 of 9 START sql table model marts.dim_products ................................ [RUN]
+8 of 9 OK created sql table model marts.dim_products ........................... [[32mSUCCESS 1818[0m in 0.87s]
+9 of 9 START sql table model marts.dim_customers ............................... [RUN]
+9 of 9 OK created sql table model marts.dim_customers .......................... [[32mSUCCESS 1033[0m in 0.68s]
+
+Finished running 1 incremental model, 1 snapshot, 3 table models, 4 view models in 0 hours 0 minutes and 14.45 seconds (14.45s).
+
+[32mCompleted successfully[0m
+
+Done. PASS=9 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=9
+[[33mWARNING[0m][DeprecationsSummary]: Deprecated functionality
+Summary of encountered deprecations:
+- PropertyMovedToConfigDeprecation: 4 occurrences
+To see all deprecation instances instead of just the first occurrence of each,
+run command again with the `--show-all-deprecations` flag. You may also need to
+run with `--no-partial-parse` as some deprecations are only encountered during
+parsing.

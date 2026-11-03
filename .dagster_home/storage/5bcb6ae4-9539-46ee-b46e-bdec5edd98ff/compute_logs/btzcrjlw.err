@@ -1,0 +1,84 @@
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61423 - LOGS_CAPTURED - Started capturing logs in process (pid: 61423).
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61423 - ingestion_customers - STEP_START - Started execution of step "ingestion_customers".
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - ingestion_customers - Starting customers ingestion pipeline...
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61423 - ingestion_customers - STEP_FAILURE - Execution of step "ingestion_customers" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_customers"::
+
+dlt.pipeline.exceptions.PipelineStepFailed: Pipeline execution failed at `step=normalize` when processing package with `load_id=1779544804.6263814` with exception:
+
+<class 'dlt.normalize.exceptions.NormalizeJobFailed'>
+Job for `job_id=orders.4c134de30c.typed-jsonl.gz` failed terminally in load with `load_id=1779544804.6263814` with message: [Errno 2] No such file or directory: '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/new/1779544804.6263814/new_jobs/orders.52a1fab987.0.insert_values.gz'.
+
+Pending packages are left in the pipeline and will be re-tried on the next pipeline run. If you pass new data to extract to next run, it will be ignored. Run `dlt pipeline etl_forge_pipeline info` for more information or `dlt pipeline etl_forge_pipeline drop-pending-packages` to drop pending packages.
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 18, in ingestion_customers
+    result = run_customers_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 70, in run_customers_pipeline
+    load_info = pipeline.run(customers_resource())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 769, in run
+    self.normalize()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 178, in _wrap
+    rv = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 570, in normalize
+    raise PipelineStepFailed(
+
+The above exception was caused by the following exception:
+dlt.normalize.exceptions.NormalizeJobFailed: Job for `job_id=orders.4c134de30c.typed-jsonl.gz` failed terminally in load with `load_id=1779544804.6263814` with message: [Errno 2] No such file or directory: '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/new/1779544804.6263814/new_jobs/orders.52a1fab987.0.insert_values.gz'.
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 562, in normalize
+    runner.run_pool(normalize_step.config, normalize_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 206, in run_pool
+    while _run_func():
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 199, in _run_func
+    run_metrics = run_f.run(cast(TExecutor, pool))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 347, in run
+    self.spool_schema_files(load_id, schema, schema_files)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 301, in spool_schema_files
+    self.spool_files(load_id, schema.clone(update_normalizers=True), map_f, files)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 246, in spool_files
+    raise pending_exc
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 188, in map_single
+    result = w_normalize_files(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/worker.py", line 264, in w_normalize_files
+    writer_metrics = _gather_metrics_and_close(parsed_file_name, in_exception=False)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/worker.py", line 227, in _gather_metrics_and_close
+    raise NormalizeJobFailed(load_id, job_id, str(exc), writer_metrics)
+
+The above exception occurred during handling of the following exception:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/new/1779544804.6263814/new_jobs/orders.52a1fab987.0.insert_values.gz'
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/worker.py", line 206, in _gather_metrics_and_close
+    normalizer.item_storage.close_writers(load_id, skip_flush=in_exception)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/data_item_storage.py", line 88, in close_writers
+    writer.close(skip_flush=skip_flush)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/data_writers/buffered.py", line 185, in close
+    self._flush_and_close_file(skip_flush=skip_flush)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/data_writers/buffered.py", line 266, in _flush_and_close_file
+    self._flush_items(allow_empty_file)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/data_writers/buffered.py", line 246, in _flush_items
+    self._file = self.open(self._file_name, "wt", encoding="utf-8", newline="")
+  File "/home/cipher/.local/share/uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/gzip.py", line 58, in open
+    binary_file = GzipFile(filename, gz_mode, compresslevel)
+  File "/home/cipher/.local/share/uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/gzip.py", line 174, in __init__
+    fileobj = self.myfileobj = builtins.open(filename, mode or 'rb')
+[0m

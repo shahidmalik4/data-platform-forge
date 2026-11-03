@@ -1,0 +1,26 @@
+[32m2026-05-24 13:26:43 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 8af0401a-5948-479a-82f8-77ddc4470f4d - 77263 - LOGS_CAPTURED - Started capturing logs in process (pid: 77263).
+[32m2026-05-24 13:26:43 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 8af0401a-5948-479a-82f8-77ddc4470f4d - 77263 - ingestion_products - STEP_START - Started execution of step "ingestion_products".
+[32m2026-05-24 13:26:43 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 8af0401a-5948-479a-82f8-77ddc4470f4d - ingestion_products - Starting products ingestion pipeline...
+2026-05-24 13:26:44,152|[WARNING]|77263|124193874609984|dlt|logger.py|wrapper:40|The pipeline `run` method will now load the pending load packages. The data you passed to the run function will not be extracted. In order to do that you must run the pipeline again
+[32m2026-05-24 13:26:44 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - 8af0401a-5948-479a-82f8-77ddc4470f4d - 77263 - ingestion_products - STEP_FAILURE - Execution of step "ingestion_products" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_products"::
+
+AttributeError: 'NoneType' object has no attribute 'load_packages'
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 31, in ingestion_products
+    result = run_products_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 76, in run_products_pipeline
+    print_load_info(load_info)
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 42, in print_load_info
+    for package in load_info.load_packages:
+[0m

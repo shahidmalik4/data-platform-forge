@@ -1,0 +1,21 @@
+[INFO] Connected to DB -> localhost:5432/warehouse
+[INFO] Running query: SELECT * FROM "raw"."customers"
+[INFO] Fetched 1750 rows from raw.customers
+[INFO] Connected to DB -> localhost:5432/warehouse
+[INFO] Running query: SELECT * FROM "raw"."products"
+[INFO] Fetched 459 rows from raw.products
+[DEBUG] Customers rows: 1750
+[DEBUG] Products rows: 459
+[INFO] Customers fetched: 1750 | Valid: 1750
+[INFO] Products fetched: 459 | Valid: 459
+[INFO] Connected to DB -> localhost:5432/warehouse
+[WARN] Table raw.orders not found → treating as first run
+relation "raw.orders" does not exist
+LINE 1: SELECT COUNT(*) FROM "raw"."orders"
+                             ^
+
+
+Load Summary:
+
+raw.orders__items: 62290 rows
+raw.orders: 2000 rows

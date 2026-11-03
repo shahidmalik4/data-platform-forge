@@ -1,0 +1,158 @@
+Running with dbt=1.11.8
+/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/vendored/requests/__init__.py:113: RequestsDependencyWarning: urllib3 (2.6.3) or chardet (7.4.1)/charset_normalizer (3.4.7) doesn't match a supported version!
+warnings.warn(
+Registered adapter: snowflake=1.11.4
+Found 14 models, 2 snapshots, 40 data tests, 4 sources, 667 macros
+
+Concurrency: 1 threads (target='dev')
+
+1 of 56 START sql table model marts.dim_date ................................... [RUN]
+1 of 56 OK created sql table model marts.dim_date .............................. [[32mSUCCESS 3650[0m in 0.87s]
+2 of 56 START sql view model staging.stg_customers ............................. [RUN]
+2 of 56 OK created sql view model staging.stg_customers ........................ [[32mSUCCESS 1[0m in 0.36s]
+3 of 56 START sql view model staging.stg_line_items ............................ [RUN]
+3 of 56 OK created sql view model staging.stg_line_items ....................... [[32mSUCCESS 1[0m in 0.31s]
+4 of 56 START sql view model staging.stg_orders ................................ [RUN]
+4 of 56 OK created sql view model staging.stg_orders ........................... [[32mSUCCESS 1[0m in 0.39s]
+5 of 56 START sql view model staging.stg_products .............................. [RUN]
+5 of 56 OK created sql view model staging.stg_products ......................... [[32mSUCCESS 1[0m in 0.38s]
+6 of 56 START test not_null_stg_customers_customer_id .......................... [RUN]
+6 of 56 PASS not_null_stg_customers_customer_id ................................ [[32mPASS[0m in 0.30s]
+7 of 56 START test not_null_stg_customers_email ................................ [RUN]
+7 of 56 PASS not_null_stg_customers_email ...................................... [[32mPASS[0m in 0.59s]
+8 of 56 START test unique_stg_customers_customer_id ............................ [RUN]
+8 of 56 PASS unique_stg_customers_customer_id .................................. [[32mPASS[0m in 0.23s]
+9 of 56 START sql table model marts.fact_line_items ............................ [RUN]
+9 of 56 OK created sql table model marts.fact_line_items ....................... [[32mSUCCESS 62619[0m in 1.78s]
+10 of 56 START test dbt_utils_expression_is_true_stg_orders_total_amount__total_amount_0  [RUN]
+10 of 56 ERROR dbt_utils_expression_is_true_stg_orders_total_amount__total_amount_0  [[31mERROR[0m in 0.21s]
+11 of 56 START test not_null_stg_orders_customer_id ............................ [RUN]
+11 of 56 PASS not_null_stg_orders_customer_id .................................. [[32mPASS[0m in 0.32s]
+12 of 56 START test not_null_stg_orders_order_id ............................... [RUN]
+12 of 56 PASS not_null_stg_orders_order_id ..................................... [[32mPASS[0m in 0.39s]
+13 of 56 START test not_null_stg_orders_total_amount ........................... [RUN]
+13 of 56 PASS not_null_stg_orders_total_amount ................................. [[32mPASS[0m in 0.33s]
+14 of 56 START test unique_stg_orders_order_id ................................. [RUN]
+14 of 56 PASS unique_stg_orders_order_id ....................................... [[32mPASS[0m in 0.50s]
+15 of 56 START test dbt_utils_expression_is_true_stg_products_price__price_0 ... [RUN]
+15 of 56 ERROR dbt_utils_expression_is_true_stg_products_price__price_0 ........ [[31mERROR[0m in 0.18s]
+16 of 56 START test dbt_utils_expression_is_true_stg_products_stock_quantity__stock_quantity_0  [RUN]
+16 of 56 ERROR dbt_utils_expression_is_true_stg_products_stock_quantity__stock_quantity_0  [[31mERROR[0m in 0.29s]
+17 of 56 START test not_null_stg_products_price ................................ [RUN]
+17 of 56 PASS not_null_stg_products_price ...................................... [[32mPASS[0m in 0.30s]
+18 of 56 START test not_null_stg_products_product_id ........................... [RUN]
+18 of 56 PASS not_null_stg_products_product_id ................................. [[32mPASS[0m in 0.23s]
+19 of 56 START test unique_stg_products_product_id ............................. [RUN]
+19 of 56 PASS unique_stg_products_product_id ................................... [[32mPASS[0m in 0.26s]
+20 of 56 START snapshot snapshots.snap_dim_customers ........................... [RUN]
+20 of 56 OK snapshotted snapshots.snap_dim_customers ........................... [[32mSUCCESS 257[0m in 1.16s]
+21 of 56 START test dbt_utils_expression_is_true_fact_line_items_item_total__item_total_0  [RUN]
+21 of 56 ERROR dbt_utils_expression_is_true_fact_line_items_item_total__item_total_0  [[31mERROR[0m in 0.21s]
+22 of 56 START test dbt_utils_expression_is_true_fact_line_items_net_item_total_gross_item_total  [RUN]
+22 of 56 FAIL 4271 dbt_utils_expression_is_true_fact_line_items_net_item_total_gross_item_total  [[31mFAIL 4271[0m in 0.29s]
+23 of 56 START test dbt_utils_expression_is_true_fact_line_items_quantity__quantity_0  [RUN]
+23 of 56 ERROR dbt_utils_expression_is_true_fact_line_items_quantity__quantity_0  [[31mERROR[0m in 0.20s]
+24 of 56 START test dbt_utils_expression_is_true_fact_line_items_unit_price__unit_price_0  [RUN]
+24 of 56 ERROR dbt_utils_expression_is_true_fact_line_items_unit_price__unit_price_0  [[31mERROR[0m in 0.18s]
+25 of 56 START test not_null_fact_line_items_item_total ........................ [RUN]
+25 of 56 PASS not_null_fact_line_items_item_total .............................. [[32mPASS[0m in 0.30s]
+26 of 56 START test not_null_fact_line_items_order_id .......................... [RUN]
+26 of 56 PASS not_null_fact_line_items_order_id ................................ [[32mPASS[0m in 0.21s]
+27 of 56 START test not_null_fact_line_items_order_item_id ..................... [RUN]
+27 of 56 PASS not_null_fact_line_items_order_item_id ........................... [[32mPASS[0m in 0.26s]
+28 of 56 START test not_null_fact_line_items_product_id ........................ [RUN]
+28 of 56 PASS not_null_fact_line_items_product_id .............................. [[32mPASS[0m in 0.27s]
+29 of 56 START test not_null_fact_line_items_quantity .......................... [RUN]
+29 of 56 PASS not_null_fact_line_items_quantity ................................ [[32mPASS[0m in 0.33s]
+30 of 56 START test not_null_fact_line_items_unit_price ........................ [RUN]
+30 of 56 PASS not_null_fact_line_items_unit_price .............................. [[32mPASS[0m in 0.32s]
+31 of 56 START test unique_fact_line_items_order_item_id ....................... [RUN]
+31 of 56 PASS unique_fact_line_items_order_item_id ............................. [[32mPASS[0m in 0.25s]
+32 of 56 SKIP relation marts.fact_orders ....................................... [[33mSKIP[0m]
+33 of 56 SKIP relation snapshots.snap_dim_products ............................. [[33mSKIP[0m]
+34 of 56 START sql table model marts.dim_customers ............................. [RUN]
+34 of 56 OK created sql table model marts.dim_customers ........................ [[32mSUCCESS 257[0m in 0.68s]
+35 of 56 SKIP test dbt_utils_expression_is_true_fact_orders_net_revenue_total_amount  [[33mSKIP[0m]
+36 of 56 SKIP test dbt_utils_expression_is_true_fact_orders_total_amount__total_amount_0  [[33mSKIP[0m]
+37 of 56 SKIP test not_null_fact_orders_customer_id ............................ [[33mSKIP[0m]
+38 of 56 SKIP test not_null_fact_orders_order_id ............................... [[33mSKIP[0m]
+39 of 56 SKIP test not_null_fact_orders_total_amount ........................... [[33mSKIP[0m]
+40 of 56 SKIP test relationships_fact_line_items_order_id__ref_fact_orders_ .... [[33mSKIP[0m]
+41 of 56 SKIP test unique_fact_orders_order_id ................................. [[33mSKIP[0m]
+42 of 56 SKIP relation marts.dim_products ...................................... [[33mSKIP[0m]
+43 of 56 START test not_null_dim_customers_customer_id ......................... [RUN]
+43 of 56 PASS not_null_dim_customers_customer_id ............................... [[32mPASS[0m in 0.71s]
+44 of 56 START test not_null_dim_customers_customer_sk ......................... [RUN]
+44 of 56 PASS not_null_dim_customers_customer_sk ............................... [[32mPASS[0m in 0.27s]
+45 of 56 SKIP test relationships_fact_orders_customer_id__ref_dim_customers_ ... [[33mSKIP[0m]
+46 of 56 START test unique_dim_customers_customer_sk ........................... [RUN]
+46 of 56 PASS unique_dim_customers_customer_sk ................................. [[32mPASS[0m in 0.30s]
+47 of 56 SKIP relation marts.fct_customer_kpis ................................. [[33mSKIP[0m]
+48 of 56 SKIP test dbt_utils_expression_is_true_dim_products_price_0 ........... [[33mSKIP[0m]
+49 of 56 SKIP test not_null_dim_products_product_id ............................ [[33mSKIP[0m]
+50 of 56 SKIP test not_null_dim_products_product_sk ............................ [[33mSKIP[0m]
+51 of 56 SKIP test relationships_fact_line_items_product_id__ref_dim_products_ . [[33mSKIP[0m]
+52 of 56 SKIP test unique_dim_products_product_sk .............................. [[33mSKIP[0m]
+53 of 56 SKIP relation intermediate.int_orders_enriched ........................ [[33mSKIP[0m]
+54 of 56 SKIP relation intermediate.int_line_items_enriched .................... [[33mSKIP[0m]
+55 of 56 SKIP relation marts.fct_orders_daily .................................. [[33mSKIP[0m]
+56 of 56 SKIP relation marts.fct_product_sales ................................. [[33mSKIP[0m]
+
+Finished running 1 incremental model, 2 snapshots, 7 table models, 40 data tests, 6 view models in 0 hours 0 minutes and 19.68 seconds (19.68s).
+
+[31mCompleted with 7 errors, 0 partial successes, and 0 warnings:[0m
+
+[31mFailure in test dbt_utils_expression_is_true_stg_orders_total_amount__total_amount_0 (models/staging/staging.yml)[0m
+  Database Error in test dbt_utils_expression_is_true_stg_orders_total_amount__total_amount_0 (models/staging/staging.yml)
+  001003 (42000): SQL compilation error:
+  syntax error line 16 at position 23 unexpected 'total_amount'.
+  compiled code at target/dbt_models-9335f68-30eb11d/run/dbt_project/models/staging/staging.yml/dbt_utils_expression_is_true_s_37fe45e3812032621f3bacf8805e7bcf.sql
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/staging/staging.yml/dbt_utils_expression_is_true_s_37fe45e3812032621f3bacf8805e7bcf.sql
+
+[31mFailure in test dbt_utils_expression_is_true_stg_products_price__price_0 (models/staging/staging.yml)[0m
+  Database Error in test dbt_utils_expression_is_true_stg_products_price__price_0 (models/staging/staging.yml)
+  001003 (42000): SQL compilation error:
+  syntax error line 16 at position 16 unexpected 'price'.
+  compiled code at target/dbt_models-9335f68-30eb11d/run/dbt_project/models/staging/staging.yml/dbt_utils_expression_is_true_stg_products_price__price_0.sql
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/staging/staging.yml/dbt_utils_expression_is_true_stg_products_price__price_0.sql
+
+[31mFailure in test dbt_utils_expression_is_true_stg_products_stock_quantity__stock_quantity_0 (models/staging/staging.yml)[0m
+  Database Error in test dbt_utils_expression_is_true_stg_products_stock_quantity__stock_quantity_0 (models/staging/staging.yml)
+  001003 (42000): SQL compilation error:
+  syntax error line 16 at position 25 unexpected 'stock_quantity'.
+  compiled code at target/dbt_models-9335f68-30eb11d/run/dbt_project/models/staging/staging.yml/dbt_utils_expression_is_true_s_426460ae44dab5bd4825a88ee415dba3.sql
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/staging/staging.yml/dbt_utils_expression_is_true_s_426460ae44dab5bd4825a88ee415dba3.sql
+
+[31mFailure in test dbt_utils_expression_is_true_fact_line_items_item_total__item_total_0 (models/marts/facts/fact.yml)[0m
+  Database Error in test dbt_utils_expression_is_true_fact_line_items_item_total__item_total_0 (models/marts/facts/fact.yml)
+  001003 (42000): SQL compilation error:
+  syntax error line 16 at position 21 unexpected 'item_total'.
+  compiled code at target/dbt_models-9335f68-30eb11d/run/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_ff58f8ea8b0300ac28024ade294204eb.sql
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_ff58f8ea8b0300ac28024ade294204eb.sql
+
+[31mFailure in test dbt_utils_expression_is_true_fact_line_items_net_item_total_gross_item_total (models/marts/facts/fact.yml)[0m
+  Got 4271 results, configured to fail if != 0
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_c0bdaca55a8f07bafc5ad023377784bb.sql
+
+[31mFailure in test dbt_utils_expression_is_true_fact_line_items_quantity__quantity_0 (models/marts/facts/fact.yml)[0m
+  Database Error in test dbt_utils_expression_is_true_fact_line_items_quantity__quantity_0 (models/marts/facts/fact.yml)
+  001003 (42000): SQL compilation error:
+  syntax error line 16 at position 19 unexpected 'quantity'.
+  compiled code at target/dbt_models-9335f68-30eb11d/run/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_6f2ee257758c6b5ac75f56604e3b8944.sql
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_6f2ee257758c6b5ac75f56604e3b8944.sql
+
+[31mFailure in test dbt_utils_expression_is_true_fact_line_items_unit_price__unit_price_0 (models/marts/facts/fact.yml)[0m
+  Database Error in test dbt_utils_expression_is_true_fact_line_items_unit_price__unit_price_0 (models/marts/facts/fact.yml)
+  001003 (42000): SQL compilation error:
+  syntax error line 16 at position 21 unexpected 'unit_price'.
+  compiled code at target/dbt_models-9335f68-30eb11d/run/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_83b24088622cc9f4b8f1fabbaaec3c85.sql
+
+  compiled code at target/dbt_models-9335f68-30eb11d/compiled/dbt_project/models/marts/facts/fact.yml/dbt_utils_expression_is_true_f_83b24088622cc9f4b8f1fabbaaec3c85.sql
+
+Done. PASS=28 WARN=0 ERROR=7 SKIP=21 NO-OP=0 TOTAL=56

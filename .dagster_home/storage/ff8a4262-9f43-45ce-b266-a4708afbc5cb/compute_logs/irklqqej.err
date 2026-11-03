@@ -1,0 +1,115 @@
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21105 - LOGS_CAPTURED - Started capturing logs in process (pid: 21105).
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21105 - raw_orders - STEP_START - Started execution of step "raw_orders".
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - raw_orders - Starting orders ingestion...
+2026-04-11 17:18:23,314|[ERROR]|21105|130882476172992|dlt|client.py|run_managed:433|Transient exception in job products.a7c77a9b60.jsonl.gz in file /home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/started_jobs/products.a7c77a9b60.0.jsonl.gz
+Traceback (most recent call last):
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/sql_client.py", line 454, in _wrap_gen
+    return (yield from f(self, *args, **kwargs))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/impl/snowflake/sql_client.py", line 130, in execute_query
+    curr.execute(query, db_args, num_statements=0)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/cursor.py", line 1097, in execute
+    sf_file_transfer_agent.execute()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/file_transfer_agent.py", line 402, in execute
+    self._init_file_metadata()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/file_transfer_agent.py", line 1028, in _init_file_metadata
+    Error.errorhandler_wrapper(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/errors.py", line 298, in errorhandler_wrapper
+    handed_over = Error.hand_to_other_handler(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/errors.py", line 354, in hand_to_other_handler
+    cursor.errorhandler(connection, cursor, error_class, error_value)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/errors.py", line 229, in default_errorhandler
+    raise error_class(
+snowflake.connector.errors.ProgrammingError: 253006: File doesn't exist: ['/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/started_jobs/products.a7c77a9b60.0.jsonl.gz']
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/destination/client.py", line 424, in run_managed
+    self.run()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/impl/snowflake/snowflake.py", line 133, in run
+    self._sql_client.execute_sql(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/impl/snowflake/sql_client.py", line 116, in execute_sql
+    with self.execute_query(sql, *args, **kwargs) as curr:
+  File "/home/cipher/.local/share/uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/sql_client.py", line 460, in _wrap_gen
+    raise db_ex.with_traceback(ex.__traceback__) from ex
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/sql_client.py", line 454, in _wrap_gen
+    return (yield from f(self, *args, **kwargs))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/destinations/impl/snowflake/sql_client.py", line 130, in execute_query
+    curr.execute(query, db_args, num_statements=0)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/cursor.py", line 1097, in execute
+    sf_file_transfer_agent.execute()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/file_transfer_agent.py", line 402, in execute
+    self._init_file_metadata()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/file_transfer_agent.py", line 1028, in _init_file_metadata
+    Error.errorhandler_wrapper(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/errors.py", line 298, in errorhandler_wrapper
+    handed_over = Error.hand_to_other_handler(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/errors.py", line 354, in hand_to_other_handler
+    cursor.errorhandler(connection, cursor, error_class, error_value)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/snowflake/connector/errors.py", line 229, in default_errorhandler
+    raise error_class(
+dlt.destinations.exceptions.DatabaseTransientException: 253006: File doesn't exist: ['/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/started_jobs/products.a7c77a9b60.0.jsonl.gz']
+[32m2026-04-11 17:18:24 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21105 - raw_orders - STEP_FAILURE - Execution of step "raw_orders" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "raw_orders"::
+
+dlt.pipeline.exceptions.PipelineStepFailed: Pipeline execution failed at `step=load` when processing package with `load_id=1775909885.2712784` with exception:
+
+<class 'FileNotFoundError'>
+[Errno 2] No such file or directory: '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/started_jobs/products.a7c77a9b60.0.jsonl.gz' -> '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/new_jobs/products.a7c77a9b60.1.jsonl.gz'
+
+Pending packages are left in the pipeline and will be re-tried on the next pipeline run. If you pass new data to extract to next run, it will be ignored. Run `dlt pipeline etl_forge_pipeline info` for more information or `dlt pipeline etl_forge_pipeline drop-pending-packages` to drop pending packages.
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 41, in raw_orders
+    result = run_single_resource(orders_resource)
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 59, in run_single_resource
+    load_info = pipeline.run(resource_func())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 770, in run
+    return self.load(destination, dataset_name, credentials=credentials)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 164, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 635, in load
+    raise PipelineStepFailed(self, "load", err_load_id, l_ex, step_info) from l_ex
+
+The above exception was caused by the following exception:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/started_jobs/products.a7c77a9b60.0.jsonl.gz' -> '/home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1775909885.2712784/new_jobs/products.a7c77a9b60.1.jsonl.gz'
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 625, in load
+    runner.run_pool(load_step.config, load_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 206, in run_pool
+    while _run_func():
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 199, in _run_func
+    run_metrics = run_f.run(cast(TExecutor, pool))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 696, in run
+    self.load_single_package(load_id, schema)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 603, in load_single_package
+    running_jobs, finalized_jobs, new_pending_exception = self.complete_jobs(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 459, in complete_jobs
+    self.load_storage.normalized_packages.retry_job(load_id, job.file_name())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 469, in retry_job
+    return self._move_job(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 744, in _move_job
+    self.storage.atomic_rename(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/file_storage.py", line 206, in atomic_rename
+    os.rename(self.make_full_path(from_relative_path), self.make_full_path(to_relative_path))
+[0m

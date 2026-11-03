@@ -1,0 +1,79 @@
+[32m2026-05-24 17:36:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - be963f4a-6931-40de-893e-f7d8ce168bdc - 337814 - LOGS_CAPTURED - Started capturing logs in process (pid: 337814).
+[32m2026-05-24 17:36:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - be963f4a-6931-40de-893e-f7d8ce168bdc - 337814 - ingestion_customers - STEP_START - Started execution of step "ingestion_customers".
+[32m2026-05-24 17:36:47 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - be963f4a-6931-40de-893e-f7d8ce168bdc - ingestion_customers - Starting customers ingestion pipeline...
+[32m2026-05-24 17:36:47 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - be963f4a-6931-40de-893e-f7d8ce168bdc - 337814 - ingestion_customers - STEP_FAILURE - Execution of step "ingestion_customers" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_customers"::
+
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779626207.3097873` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 18, in ingestion_customers
+    result = run_customers_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 69, in run_customers_pipeline
+    load_info = pipeline.run(customers_resource())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 770, in run
+    return self.load(destination, dataset_name, credentials=credentials)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 164, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 634, in load
+    step_info = self._get_step_info(load_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 1635, in _get_step_info
+    return step.get_step_info(self)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 745, in get_step_info
+    package_info = self.load_storage.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_storage.py", line 210, in get_load_package_info
+    return self.normalized_packages.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 637, in get_load_package_info
+    package_jobs = self.get_load_package_jobs(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 616, in get_load_package_jobs
+    raise LoadPackageNotFound(load_id)
+
+The above exception occurred during handling of the following exception:
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779626207.3097873` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_storage.py", line 208, in get_load_package_info
+    return self.loaded_packages.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 637, in get_load_package_info
+    package_jobs = self.get_load_package_jobs(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 616, in get_load_package_jobs
+    raise LoadPackageNotFound(load_id)
+
+The above exception occurred during handling of the following exception:
+FileNotFoundError: /home/cipher/.dlt/pipelines/etl_forge_pipeline/load/normalized/1779626207.3097873/schema_updates.json
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 625, in load
+    runner.run_pool(load_step.config, load_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 206, in run_pool
+    while _run_func():
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 199, in _run_func
+    run_metrics = run_f.run(cast(TExecutor, pool))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 696, in run
+    self.load_single_package(load_id, schema)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 598, in load_single_package
+    running_jobs = self.initialize_package(load_id, schema, new_jobs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 578, in initialize_package
+    self.load_storage.commit_schema_update(load_id, applied_update)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_storage.py", line 155, in commit_schema_update
+    self.storage.delete(schema_update_file)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/file_storage.py", line 91, in delete
+    raise FileNotFoundError(file_path)
+[0m

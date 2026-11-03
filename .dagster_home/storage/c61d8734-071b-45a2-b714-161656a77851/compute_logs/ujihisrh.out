@@ -1,0 +1,13 @@
+
+Load Summary:
+
+✔ raw.customers: 1028 rows
+
+Load Summary:
+
+✔ raw.products: 1836 rows
+
+Load Summary:
+
+✔ raw.orders__items: 69239 rows
+✔ raw.orders: 2245 rows

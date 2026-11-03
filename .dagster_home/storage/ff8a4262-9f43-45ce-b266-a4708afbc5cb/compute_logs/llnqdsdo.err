@@ -1,0 +1,9 @@
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21104 - LOGS_CAPTURED - Started capturing logs in process (pid: 21104).
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21104 - raw_customers - STEP_START - Started execution of step "raw_customers".
+[32m2026-04-11 17:17:58 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - raw_customers - Starting customers ingestion...
+[32m2026-04-11 17:18:47 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - raw_customers - Finished customers ingestion.
+[32m2026-04-11 17:18:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21104 - raw_customers - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2026-04-11 17:18:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - raw_customers - Writing file at: /home/cipher/projects/data-platform/.dagster_home/storage/raw_customers using PickledObjectFilesystemIOManager...
+[32m2026-04-11 17:18:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21104 - raw_customers - ASSET_MATERIALIZATION - Materialized value raw_customers.
+[32m2026-04-11 17:18:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21104 - raw_customers - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2026-04-11 17:18:47 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - ff8a4262-9f43-45ce-b266-a4708afbc5cb - 21104 - raw_customers - STEP_SUCCESS - Finished execution of step "raw_customers" in 49.61s.

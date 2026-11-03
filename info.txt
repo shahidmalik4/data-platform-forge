@@ -1,0 +1,4 @@
+.dagster_home/dagster.yaml and put
+storage:
+  sqlite:
+    base_dir: .dagster_home

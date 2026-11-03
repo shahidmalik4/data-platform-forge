@@ -1,0 +1,101 @@
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61424 - LOGS_CAPTURED - Started capturing logs in process (pid: 61424).
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61424 - ingestion_orders - STEP_START - Started execution of step "ingestion_orders".
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - ingestion_orders - Starting orders/order__items ingestion pipeline...
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61424 - ingestion_orders - STEP_FAILURE - Execution of step "ingestion_orders" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_orders"::
+
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779544804.6263814` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 43, in ingestion_orders
+    orders = run_orders_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 88, in run_orders_pipeline
+    load_info = pipeline.run(orders_resource())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 769, in run
+    self.normalize()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 178, in _wrap
+    rv = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 569, in normalize
+    step_info = self._get_step_info(normalize_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 1635, in _get_step_info
+    return step.get_step_info(self)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 378, in get_step_info
+    load_package = self.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 363, in get_load_package_info
+    new_package = self.load_storage.new_packages.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 637, in get_load_package_info
+    package_jobs = self.get_load_package_jobs(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 616, in get_load_package_jobs
+    raise LoadPackageNotFound(load_id)
+
+The above exception occurred during handling of the following exception:
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779544804.6263814` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 360, in get_load_package_info
+    return self.load_storage.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_storage.py", line 210, in get_load_package_info
+    return self.normalized_packages.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 637, in get_load_package_info
+    package_jobs = self.get_load_package_jobs(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 616, in get_load_package_jobs
+    raise LoadPackageNotFound(load_id)
+
+The above exception occurred during handling of the following exception:
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779544804.6263814` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_storage.py", line 208, in get_load_package_info
+    return self.loaded_packages.get_load_package_info(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 637, in get_load_package_info
+    package_jobs = self.get_load_package_jobs(load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 616, in get_load_package_jobs
+    raise LoadPackageNotFound(load_id)
+
+The above exception occurred during handling of the following exception:
+dlt.normalize.exceptions.NormalizeJobFailed: Job for `job_id=orders.4c134de30c.typed-jsonl.gz` failed terminally in load with `load_id=1779544804.6263814` with message: Package with `load_id=1779544804.6263814` could not be found.
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 562, in normalize
+    runner.run_pool(normalize_step.config, normalize_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 206, in run_pool
+    while _run_func():
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 199, in _run_func
+    run_metrics = run_f.run(cast(TExecutor, pool))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 347, in run
+    self.spool_schema_files(load_id, schema, schema_files)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 301, in spool_schema_files
+    self.spool_files(load_id, schema.clone(update_normalizers=True), map_f, files)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 246, in spool_files
+    raise pending_exc
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/normalize.py", line 188, in map_single
+    result = w_normalize_files(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/worker.py", line 262, in w_normalize_files
+    raise NormalizeJobFailed(load_id, job_id, str(exc), writer_metrics) from exc
+
+The above exception was caused by the following exception:
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779544804.6263814` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/worker.py", line 256, in w_normalize_files
+    partial_updates = normalizer(extracted_items_file, root_table_name)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/items_normalizers/jsonl.py", line 448, in __call__
+    self._maybe_cancel()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/normalize/items_normalizers/base.py", line 31, in _maybe_cancel
+    self.load_storage.new_packages.raise_if_cancelled(self.load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 571, in raise_if_cancelled
+    raise LoadPackageNotFound(load_id)
+[0m

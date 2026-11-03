@@ -1,0 +1,18 @@
+
+Load Summary:
+
+✔ raw.customers: 750 rows
+
+Load Summary:
+
+✔ raw.products: 459 rows
+[INFO] Waiting for data availability...
+[INFO] Fetched 750 rows from raw.customers
+[INFO] Fetched 459 rows from raw.products
+[INFO] Customers fetched: 750 | Valid: 750
+[INFO] Products fetched: 459 | Valid: 459
+
+Load Summary:
+
+✔ raw.orders__items: 64781 rows
+✔ raw.orders: 2035 rows

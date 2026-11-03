@@ -1,0 +1,67 @@
+[32m2026-05-24 13:01:10 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 964a68ed-6371-49c3-8caf-da3d0b8abfc7 - 47195 - LOGS_CAPTURED - Started capturing logs in process (pid: 47195).
+[32m2026-05-24 13:01:10 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 964a68ed-6371-49c3-8caf-da3d0b8abfc7 - 47195 - ingestion_orders - STEP_START - Started execution of step "ingestion_orders".
+[32m2026-05-24 13:01:10 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 964a68ed-6371-49c3-8caf-da3d0b8abfc7 - ingestion_orders - Starting orders/order__items ingestion pipeline...
+2026-05-24 13:01:10,529|[WARNING]|47195|131042673428288|dlt|logger.py|wrapper:40|The pipeline `run` method will now load the pending load packages. The data you passed to the run function will not be extracted. In order to do that you must run the pipeline again
+[32m2026-05-24 13:01:10 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - 964a68ed-6371-49c3-8caf-da3d0b8abfc7 - 47195 - ingestion_orders - STEP_FAILURE - Execution of step "ingestion_orders" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_orders"::
+
+dlt.pipeline.exceptions.PipelineStepFailed: Pipeline execution failed at `step=extract` when processing package with `load_id=1779609670.57339` with exception:
+
+<class 'dlt.extract.exceptions.ResourceExtractionError'>
+In processing pipe `orders`: extraction of resource `orders` in `generator` `orders_resource` caused an exception: Missing customers/products data in RAW layer
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 43, in ingestion_orders
+    orders = run_orders_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 88, in run_orders_pipeline
+    load_info = pipeline.run(orders_resource())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 757, in run
+    self.extract(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 178, in _wrap
+    rv = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 164, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 516, in extract
+    raise PipelineStepFailed(
+
+The above exception was caused by the following exception:
+dlt.extract.exceptions.ResourceExtractionError: In processing pipe `orders`: extraction of resource `orders` in `generator` `orders_resource` caused an exception: Missing customers/products data in RAW layer
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 493, in extract
+    self._extract_source(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 1388, in _extract_source
+    load_id = extract.extract(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/extract.py", line 487, in extract
+    self._extract_single_source(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/extract.py", line 405, in _extract_single_source
+    for pipe_item in pipes:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/pipe_iterator.py", line 158, in __next__
+    pipe_item = self._get_source_item()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/pipe_iterator.py", line 304, in _get_source_item
+    raise ResourceExtractionError(pipe.name, gen, str(ex), "generator") from ex
+
+The above exception was caused by the following exception:
+ValueError: Missing customers/products data in RAW layer
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/pipe_iterator.py", line 274, in _get_source_item
+    pipe_item = next(gen)
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/dlt_resources/dlt_orders.py", line 7, in orders_resource
+    new_orders = run_order_generation()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/generators/generate_orders.py", line 188, in run_order_generation
+    raise ValueError("Missing customers/products data in RAW layer")
+[0m

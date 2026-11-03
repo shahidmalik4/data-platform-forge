@@ -1,0 +1,70 @@
+[32m2026-05-24 12:05:11 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - e5b48b95-98ad-4999-b8c5-804868d4026b - 4380 - LOGS_CAPTURED - Started capturing logs in process (pid: 4380).
+[32m2026-05-24 12:05:11 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - e5b48b95-98ad-4999-b8c5-804868d4026b - 4380 - ingestion_products - STEP_START - Started execution of step "ingestion_products".
+[32m2026-05-24 12:05:11 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - e5b48b95-98ad-4999-b8c5-804868d4026b - ingestion_products - Starting products ingestion pipeline...
+2026-05-24 12:05:11,178|[WARNING]|4380|133412108068672|dlt|logger.py|wrapper:40|The pipeline `run` method will now load the pending load packages. The data you passed to the run function will not be extracted. In order to do that you must run the pipeline again
+[32m2026-05-24 12:05:11 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - e5b48b95-98ad-4999-b8c5-804868d4026b - 4380 - ingestion_products - STEP_FAILURE - Execution of step "ingestion_products" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_products"::
+
+dlt.pipeline.exceptions.PipelineStepFailed: Pipeline execution failed at `step=load` when processing package with `load_id=1779606310.8591087` with exception:
+
+<class 'dlt.common.storages.exceptions.LoadPackageNotFound'>
+Package with `load_id=1779606310.8591087` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 31, in ingestion_products
+    result = run_products_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 79, in run_products_pipeline
+    load_info = pipeline.run(products_resource())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 753, in run
+    return self.load(destination, dataset_name, credentials=credentials)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 164, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 635, in load
+    raise PipelineStepFailed(self, "load", err_load_id, l_ex, step_info) from l_ex
+
+The above exception was caused by the following exception:
+dlt.common.storages.exceptions.LoadPackageNotFound: Package with `load_id=1779606310.8591087` could not be found
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 625, in load
+    runner.run_pool(load_step.config, load_step)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 206, in run_pool
+    while _run_func():
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/runners/pool_runner.py", line 199, in _run_func
+    run_metrics = run_f.run(cast(TExecutor, pool))
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 696, in run
+    self.load_single_package(load_id, schema)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 659, in load_single_package
+    self.complete_package(load_id, schema, aborted=False)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/load/load.py", line 506, in complete_package
+    with Container().injectable_context(
+  File "/home/cipher/.local/share/uv/python/cpython-3.10.19-linux-x86_64-gnu/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/configuration/container.py", line 174, in injectable_context
+    config.resolve()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/configuration/specs/base_configuration.py", line 417, in resolve
+    self.call_method_in_mro("on_resolved")
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/configuration/specs/base_configuration.py", line 506, in call_method_in_mro
+    c.__dict__[method_name](config)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 802, in on_resolved
+    self.state = self.storage.get_load_package_state(self.load_id)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/common/storages/load_package.py", line 582, in get_load_package_state
+    raise LoadPackageNotFound(load_id)
+[0m

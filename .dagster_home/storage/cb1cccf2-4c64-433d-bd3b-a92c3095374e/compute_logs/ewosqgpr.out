@@ -1,0 +1,128 @@
+Running with dbt=1.11.8
+Registered adapter: postgres=1.10.0
+Found 14 models, 2 snapshots, 50 data tests, 4 sources, 609 macros
+
+Concurrency: 1 threads (target='dev')
+
+1 of 66 START sql table model marts.dim_date ................................... [RUN]
+1 of 66 ERROR creating sql table model marts.dim_date .......................... [[31mERROR[0m in 0.12s]
+2 of 66 START sql view model staging.stg_customers ............................. [RUN]
+2 of 66 ERROR creating sql view model staging.stg_customers .................... [[31mERROR[0m in 0.15s]
+3 of 66 START sql view model staging.stg_line_items ............................ [RUN]
+3 of 66 ERROR creating sql view model staging.stg_line_items ................... [[31mERROR[0m in 0.04s]
+4 of 66 START sql view model staging.stg_orders ................................ [RUN]
+4 of 66 ERROR creating sql view model staging.stg_orders ....................... [[31mERROR[0m in 0.04s]
+5 of 66 START sql view model staging.stg_products .............................. [RUN]
+5 of 66 ERROR creating sql view model staging.stg_products ..................... [[31mERROR[0m in 0.04s]
+6 of 66 SKIP test not_null_stg_customers_customer_id ........................... [[33mSKIP[0m]
+7 of 66 SKIP test not_null_stg_customers_email ................................. [[33mSKIP[0m]
+8 of 66 SKIP test unique_stg_customers_customer_id ............................. [[33mSKIP[0m]
+9 of 66 SKIP relation marts.fact_line_items .................................... [[33mSKIP[0m]
+10 of 66 SKIP test not_null_stg_orders_customer_id ............................. [[33mSKIP[0m]
+11 of 66 SKIP test not_null_stg_orders_order_id ................................ [[33mSKIP[0m]
+12 of 66 SKIP test not_null_stg_orders_total_amount ............................ [[33mSKIP[0m]
+13 of 66 SKIP test unique_stg_orders_order_id .................................. [[33mSKIP[0m]
+14 of 66 SKIP test not_null_stg_products_price ................................. [[33mSKIP[0m]
+15 of 66 SKIP test not_null_stg_products_product_id ............................ [[33mSKIP[0m]
+16 of 66 SKIP test unique_stg_products_product_id .............................. [[33mSKIP[0m]
+17 of 66 SKIP relation snapshots.snap_dim_customers ............................ [[33mSKIP[0m]
+18 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_discount_amount_0_and_discount_amount_gross_item_total_  [[33mSKIP[0m]
+19 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_gross_item_total_quantity_unit_price_  [[33mSKIP[0m]
+20 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_item_total___column_name_0  [[33mSKIP[0m]
+21 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_net_item_total_gross_item_total_  [[33mSKIP[0m]
+22 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_quantity_0_and_unit_price_0_and_item_total_0  [[33mSKIP[0m]
+23 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_quantity___column_name_0  [[33mSKIP[0m]
+24 of 66 SKIP test dbt_utils_expression_is_true_fact_line_items_unit_price___column_name_0  [[33mSKIP[0m]
+25 of 66 SKIP test not_null_fact_line_items_item_total ......................... [[33mSKIP[0m]
+26 of 66 SKIP test not_null_fact_line_items_order_id ........................... [[33mSKIP[0m]
+27 of 66 SKIP test not_null_fact_line_items_order_item_id ...................... [[33mSKIP[0m]
+28 of 66 SKIP test not_null_fact_line_items_product_id ......................... [[33mSKIP[0m]
+29 of 66 SKIP test not_null_fact_line_items_quantity ........................... [[33mSKIP[0m]
+30 of 66 SKIP test not_null_fact_line_items_unit_price ......................... [[33mSKIP[0m]
+31 of 66 SKIP test unique_fact_line_items_order_item_id ........................ [[33mSKIP[0m]
+32 of 66 SKIP relation marts.fact_orders ....................................... [[33mSKIP[0m]
+33 of 66 SKIP relation snapshots.snap_dim_products ............................. [[33mSKIP[0m]
+34 of 66 SKIP relation marts.dim_customers ..................................... [[33mSKIP[0m]
+35 of 66 SKIP test dbt_utils_expression_is_true_fact_orders_abs_total_amount_shipping_cost_net_revenue_0_05_  [[33mSKIP[0m]
+36 of 66 SKIP test dbt_utils_expression_is_true_fact_orders_net_revenue___column_name_0  [[33mSKIP[0m]
+37 of 66 SKIP test dbt_utils_expression_is_true_fact_orders_net_revenue_total_amount_  [[33mSKIP[0m]
+38 of 66 SKIP test dbt_utils_expression_is_true_fact_orders_shipping_cost___column_name_0  [[33mSKIP[0m]
+39 of 66 SKIP test dbt_utils_expression_is_true_fact_orders_total_amount___column_name_0  [[33mSKIP[0m]
+40 of 66 SKIP test not_null_fact_orders_customer_id ............................ [[33mSKIP[0m]
+41 of 66 SKIP test not_null_fact_orders_net_revenue ............................ [[33mSKIP[0m]
+42 of 66 SKIP test not_null_fact_orders_order_id ............................... [[33mSKIP[0m]
+43 of 66 SKIP test not_null_fact_orders_shipping_cost .......................... [[33mSKIP[0m]
+44 of 66 SKIP test not_null_fact_orders_total_amount ........................... [[33mSKIP[0m]
+45 of 66 SKIP test relationships_fact_line_items_order_id__order_id__ref_fact_orders_  [[33mSKIP[0m]
+46 of 66 SKIP test unique_fact_orders_order_id ................................. [[33mSKIP[0m]
+47 of 66 SKIP relation marts.dim_products ...................................... [[33mSKIP[0m]
+48 of 66 SKIP test accepted_values_dim_customers_is_current__0__1 .............. [[33mSKIP[0m]
+49 of 66 SKIP test dbt_utils_expression_is_true_dim_customers_dbt_valid_from_dbt_valid_to  [[33mSKIP[0m]
+50 of 66 SKIP test dbt_utils_unique_combination_of_columns_dim_customers_customer_id__is_current  [[33mSKIP[0m]
+51 of 66 SKIP test not_null_dim_customers_customer_id .......................... [[33mSKIP[0m]
+52 of 66 SKIP test not_null_dim_customers_customer_sk .......................... [[33mSKIP[0m]
+53 of 66 SKIP test not_null_dim_customers_is_current ........................... [[33mSKIP[0m]
+54 of 66 SKIP test relationships_fact_orders_customer_id__customer_id__ref_dim_customers_  [[33mSKIP[0m]
+55 of 66 SKIP test unique_dim_customers_customer_sk ............................ [[33mSKIP[0m]
+56 of 66 SKIP relation marts.fct_customer_kpis ................................. [[33mSKIP[0m]
+57 of 66 SKIP test dbt_utils_expression_is_true_dim_products_price___column_name_0  [[33mSKIP[0m]
+58 of 66 SKIP test not_null_dim_products_price ................................. [[33mSKIP[0m]
+59 of 66 SKIP test not_null_dim_products_product_id ............................ [[33mSKIP[0m]
+60 of 66 SKIP test not_null_dim_products_product_sk ............................ [[33mSKIP[0m]
+61 of 66 SKIP test relationships_fact_line_items_product_id__product_id__ref_dim_products_  [[33mSKIP[0m]
+62 of 66 SKIP test unique_dim_products_product_sk .............................. [[33mSKIP[0m]
+63 of 66 SKIP relation intermediate.int_orders_enriched ........................ [[33mSKIP[0m]
+64 of 66 SKIP relation intermediate.int_line_items_enriched .................... [[33mSKIP[0m]
+65 of 66 SKIP relation marts.fct_orders_daily .................................. [[33mSKIP[0m]
+66 of 66 SKIP relation marts.fct_product_sales ................................. [[33mSKIP[0m]
+
+Finished running 1 incremental model, 2 snapshots, 7 table models, 50 data tests, 6 view models in 0 hours 0 minutes and 1.23 seconds (1.23s).
+
+[31mCompleted with 5 errors, 0 partial successes, and 0 warnings:[0m
+
+[31mFailure in model dim_date (models/marts/dims/dim_date.sql)[0m
+  Database Error in model dim_date (models/marts/dims/dim_date.sql)
+  syntax error at or near "table"
+  LINE 16:     from table(generator(rowcount => 3650))  -- ~10 years
+                    ^
+  compiled code at target/dbt_models-cb1cccf-dfe5264/run/dbt_project/models/marts/dims/dim_date.sql
+
+  compiled code at target/dbt_models-cb1cccf-dfe5264/compiled/dbt_project/models/marts/dims/dim_date.sql
+
+[31mFailure in model stg_customers (models/staging/stg_customers.sql)[0m
+  Database Error in model stg_customers (models/staging/stg_customers.sql)
+  type "string" does not exist
+  LINE 18:         customer_id::string as customer_id,
+                                ^
+  compiled code at target/dbt_models-cb1cccf-dfe5264/run/dbt_project/models/staging/stg_customers.sql
+
+  compiled code at target/dbt_models-cb1cccf-dfe5264/compiled/dbt_project/models/staging/stg_customers.sql
+
+[31mFailure in model stg_line_items (models/staging/stg_line_items.sql)[0m
+  Database Error in model stg_line_items (models/staging/stg_line_items.sql)
+  type "string" does not exist
+  LINE 28:         try_to_number(quantity::string) as quantity,
+                                           ^
+  compiled code at target/dbt_models-cb1cccf-dfe5264/run/dbt_project/models/staging/stg_line_items.sql
+
+  compiled code at target/dbt_models-cb1cccf-dfe5264/compiled/dbt_project/models/staging/stg_line_items.sql
+
+[31mFailure in model stg_orders (models/staging/stg_orders.sql)[0m
+  Database Error in model stg_orders (models/staging/stg_orders.sql)
+  type "string" does not exist
+  LINE 19:         order_id::string as order_id,
+                             ^
+  compiled code at target/dbt_models-cb1cccf-dfe5264/run/dbt_project/models/staging/stg_orders.sql
+
+  compiled code at target/dbt_models-cb1cccf-dfe5264/compiled/dbt_project/models/staging/stg_orders.sql
+
+[31mFailure in model stg_products (models/staging/stg_products.sql)[0m
+  Database Error in model stg_products (models/staging/stg_products.sql)
+  type "string" does not exist
+  LINE 17:         product_id::string as product_id,
+                               ^
+  compiled code at target/dbt_models-cb1cccf-dfe5264/run/dbt_project/models/staging/stg_products.sql
+
+  compiled code at target/dbt_models-cb1cccf-dfe5264/compiled/dbt_project/models/staging/stg_products.sql
+
+Done. PASS=0 WARN=0 ERROR=5 SKIP=61 NO-OP=0 TOTAL=66

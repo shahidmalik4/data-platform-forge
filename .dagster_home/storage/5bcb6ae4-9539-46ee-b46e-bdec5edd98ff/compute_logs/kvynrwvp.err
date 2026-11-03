@@ -1,0 +1,10 @@
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61425 - LOGS_CAPTURED - Started capturing logs in process (pid: 61425).
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61425 - ingestion_products - STEP_START - Started execution of step "ingestion_products".
+[32m2026-05-23 19:00:04 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - ingestion_products - Starting products ingestion pipeline...
+2026-05-23 19:00:04,965|[WARNING]|61425|133670298687296|dlt|logger.py|wrapper:40|The pipeline `run` method will now load the pending load packages. The data you passed to the run function will not be extracted. In order to do that you must run the pipeline again
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - ingestion_products - Products ingestion completed.
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61425 - ingestion_products - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - ingestion_products - Writing file at: /home/cipher/projects/data-platform/.dagster_home/storage/ingestion_products using PickledObjectFilesystemIOManager...
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61425 - ingestion_products - ASSET_MATERIALIZATION - Materialized value ingestion_products.
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61425 - ingestion_products - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2026-05-23 19:00:05 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5bcb6ae4-9539-46ee-b46e-bdec5edd98ff - 61425 - ingestion_products - STEP_SUCCESS - Finished execution of step "ingestion_products" in 951ms.

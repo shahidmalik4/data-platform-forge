@@ -1,0 +1,9 @@
+[32m2026-05-18 16:19:41 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - 60539 - LOGS_CAPTURED - Started capturing logs in process (pid: 60539).
+[32m2026-05-18 16:19:41 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - 60539 - ingestion_asset - STEP_START - Started execution of step "ingestion_asset".
+[32m2026-05-18 16:19:41 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - ingestion_asset - Starting dlt ingestion pipeline...
+[32m2026-05-18 16:19:46 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - ingestion_asset - dlt ingestion pipeline completed.
+[32m2026-05-18 16:19:46 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - 60539 - ingestion_asset - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2026-05-18 16:19:46 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - ingestion_asset - Writing file at: /home/cipher/projects/data-platform/.dagster_home/storage/ingestion_asset using PickledObjectFilesystemIOManager...
+[32m2026-05-18 16:19:46 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - 60539 - ingestion_asset - ASSET_MATERIALIZATION - Materialized value ingestion_asset.
+[32m2026-05-18 16:19:46 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - 60539 - ingestion_asset - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2026-05-18 16:19:46 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - cb1cccf2-4c64-433d-bd3b-a92c3095374e - 60539 - ingestion_asset - STEP_SUCCESS - Finished execution of step "ingestion_asset" in 4.46s.

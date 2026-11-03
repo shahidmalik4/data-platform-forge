@@ -1,0 +1,74 @@
+[32m2026-05-18 14:00:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - e1e527a7-7ff0-49fd-90cb-fa0543cce3c9 - 31238 - LOGS_CAPTURED - Started capturing logs in process (pid: 31238).
+[32m2026-05-18 14:00:20 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - e1e527a7-7ff0-49fd-90cb-fa0543cce3c9 - 31238 - ingestion_asset - STEP_START - Started execution of step "ingestion_asset".
+[32m2026-05-18 14:00:20 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - e1e527a7-7ff0-49fd-90cb-fa0543cce3c9 - ingestion_asset - Starting dlt ingestion pipeline...
+[32m2026-05-18 14:00:21 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - e1e527a7-7ff0-49fd-90cb-fa0543cce3c9 - 31238 - ingestion_asset - STEP_FAILURE - Execution of step "ingestion_asset" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_asset"::
+
+dlt.pipeline.exceptions.PipelineStepFailed: Pipeline execution failed at `step=extract` when processing package with `load_id=1779094821.5684414` with exception:
+
+<class 'dlt.extract.exceptions.ResourceExtractionError'>
+In processing pipe `products`: extraction of resource `products` in `generator` `products_resource` caused an exception: name 'psycopg2' is not defined
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 135, in _coerce_op_compute_fn_to_iterator
+    result = invoke_compute_fn(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/compute_generator.py", line 115, in invoke_compute_fn
+    return fn(context, **args_to_pass) if context_arg_provided else fn(**args_to_pass)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 14, in ingestion_asset
+    result = run_pipeline()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/pipeline/run_dlt_pipeline.py", line 61, in run_pipeline
+    load_info = pipeline.run(resource_func())
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 757, in run
+    self.extract(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 224, in _wrap
+    step_info = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 178, in _wrap
+    rv = f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 164, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 272, in _wrap
+    return f(self, *args, **kwargs)
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 516, in extract
+    raise PipelineStepFailed(
+
+The above exception was caused by the following exception:
+dlt.extract.exceptions.ResourceExtractionError: In processing pipe `products`: extraction of resource `products` in `generator` `products_resource` caused an exception: name 'psycopg2' is not defined
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 493, in extract
+    self._extract_source(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/pipeline/pipeline.py", line 1388, in _extract_source
+    load_id = extract.extract(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/extract.py", line 487, in extract
+    self._extract_single_source(
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/extract.py", line 405, in _extract_single_source
+    for pipe_item in pipes:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/pipe_iterator.py", line 158, in __next__
+    pipe_item = self._get_source_item()
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/pipe_iterator.py", line 304, in _get_source_item
+    raise ResourceExtractionError(pipe.name, gen, str(ex), "generator") from ex
+
+The above exception was caused by the following exception:
+NameError: name 'psycopg2' is not defined
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dlt/extract/pipe_iterator.py", line 274, in _get_source_item
+    pipe_item = next(gen)
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/dlt_resources/dlt_products.py", line 8, in products_resource
+    new_products = run_product_generation()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/generators/generate_products.py", line 96, in run_product_generation
+    first_run = is_first_run("products")
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/utils/db_utils.py", line 44, in is_first_run
+    conn = get_connection()
+  File "/home/cipher/projects/data-platform/src/data_platform/ingestion/utils/db_utils.py", line 8, in get_connection
+    return psycopg2.connect(
+[0m

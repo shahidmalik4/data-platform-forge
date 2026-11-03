@@ -1,0 +1,17 @@
+[32m2026-05-24 13:44:08 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5f1341d3-6eef-4fc6-adfc-d9ae3ce10e9e - 97834 - LOGS_CAPTURED - Started capturing logs in process (pid: 97834).
+[32m2026-05-24 13:44:08 +0500[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 5f1341d3-6eef-4fc6-adfc-d9ae3ce10e9e - 97834 - ingestion_orders - STEP_START - Started execution of step "ingestion_orders".
+[32m2026-05-24 13:44:08 +0500[0m - dagster - [34mINFO[0m - __ASSET_JOB - 5f1341d3-6eef-4fc6-adfc-d9ae3ce10e9e - ingestion_orders - Starting orders/order_items ingestion pipeline...
+[32m2026-05-24 13:44:33 +0500[0m - dagster - [34mERROR[0m - [31m__ASSET_JOB - 5f1341d3-6eef-4fc6-adfc-d9ae3ce10e9e - 97834 - ingestion_orders - STEP_FAILURE - Execution of step "ingestion_orders" failed.
+
+dagster._core.errors.DagsterExecutionStepExecutionError: Error occurred while executing op "ingestion_orders"::
+
+AttributeError: 'Pipeline' object has no attribute 'pop'
+
+Stack Trace:
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_core/execution/plan/utils.py", line 57, in op_execution_error_boundary
+    yield
+  File "/home/cipher/projects/data-platform/.venv/lib/python3.10/site-packages/dagster/_utils/__init__.py", line 394, in iterate_with_context
+    next_output = next(iterator)
+  File "/home/cipher/projects/data-platform/src/data_platform/orchestrator/dlt_assets.py", line 55, in ingestion_orders
+    order_items.extend(order.pop("items"))
+[0m

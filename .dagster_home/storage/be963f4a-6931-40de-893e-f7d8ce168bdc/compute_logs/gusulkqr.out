@@ -1,0 +1,7 @@
+[DEBUG] running products pipeline
+[WARN] Table raw.products not found → treating as first run
+
+Load Summary:
+
+raw.products: 450 rows
+raw._dlt_pipeline_state: 1 rows
